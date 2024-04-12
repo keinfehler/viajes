@@ -1,0 +1,258 @@
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+		}
+		header {
+			background-color: #F033FF;
+			width:"100"; 
+			height:"50";
+			padding: 10px;
+			
+		}
+
+#menu ul li {
+ background-color:#E633FF;
+}
+#menu ul {
+ list-style:none;
+ margin:0;
+ padding:0;
+}
+#menu ul a {
+ display:block;
+ color:#3633FF;
+ text-decoration:none;
+ font-weight:400;
+ font-size:15px;
+ padding:10px;
+ font-family:"Arial, Helvetica, Verdana;" sans-serif;
+
+ font-family: sans-serif;
+ font-size: 120%;
+ font-style: normal;
+ text-transform:uppercase;
+ letter-spacing:3px;
+}
+
+#menu ul li {
+ position:relative;
+ float:left;
+ margin:0;
+ padding:0;
+}
+#menu ul li:hover {
+ background:#E633FF;
+  background-position: center;
+}
+#menu ul ul {
+ display:none;
+ position:absolute;
+ top:100%;
+ left:0;
+ padding:0;
+}
+#menu ul ul li {
+ float:none;
+ width:150px
+}
+#menu ul ul a {
+ line-height:120%;
+ padding:10px 15px;
+}
+#menu ul li:hover > ul {
+ display:block;
+ }
+#menu li {
+          float:center;
+          }
+img {
+		padding: 0px;
+		}
+		
+	h2.Encabezado {
+       font-size:30px;
+       font-style:normal; 
+       text-align: left; 
+       color:#3633FF; 
+       text-align: center;
+
+	}
+
+	p.somos {
+	   font-size:20px;
+	   font-style:normal; 
+	   text-align: left; 
+	   color: black;
+	}
+
+	img.fotos {
+		padding: 0px;
+	}
+
+	h2.info {
+		    font-size:20px; 
+		    font-style:normal; 
+		    text-align: left; 
+		    color:#3633FF;
+	}
+	h2.infini {
+		    font-size:30px; 
+		    font-style:normal; 
+		    text-align: left; 
+		    color:#8E1F72;
+	}
+
+	p.text {
+           font-size:15px; 
+           font-style:normal; 
+           text-align: left; 
+           color: black;
+
+	}
+
+	.contenedor .formu .formulario .titulo {
+     font-weight: normal;
+     font-family: sans-serif;
+     text-align: center;
+     padding: 14px 0;
+	}
+
+
+    .contenedor .formu {
+    	background: rgba(0,0,0,.6;)
+    	width: 90%;
+    	max-width: 650px;
+    	margin: auto;
+    	padding: 5px 35px;
+    	margin-top: 10px;
+    	padding-bottom: 30px;
+    	border-radius: 3px;
+    }
+
+    .contenedor .formu .flabel {
+    	display: block;
+    	color: #3633FF;
+    	font-size: 20px;
+    	font-family: Roboto;
+    	position: relative;
+    }
+    .contenedor .formu .finput, .ftextarea {
+    	background: rgba(0,0,0,.1);
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #3633FF;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 2px;
+        font-size: 14px;
+        font-family: Roboto;
+        color: #3633FF
+        
+    }
+
+    .contenedor .formu .ftextarea {
+    	resize: vertical;
+    	max-height: 150px;
+    	min-height: 50px;
+    }
+
+    .contenedor .formu .boton {
+    	width: 104%;
+    	font-family: Roboto;
+    	outline: none;
+    	background: #3633FF;
+    	font-size: 20px;
+    	border: none;
+    	padding: 15px 0;
+    	cursor: pointer;
+
+    }
+    .imagen {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+ 
+
+.tencima {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size:50px; 
+		 font-style: italic; 
+		    text-align: left; 
+		    color:#DAF7A6;
+		}
+
+		h2.title {
+		    font-size:30px; 
+		    font-style:normal; 
+		    text-align: center; 
+		    color:#3633FF;
+		}
+		.tbl {
+			margin: 30px 0; 
+			font-size: 30px; 
+			font-family: sans-serif; 
+			color: #3633FF;
+			min-width: 200px; box-shadow: 0 0 20px
+			 rgba(0, 0, 0, 0.15);
+		}
+		.tb  {
+			background-color: #A6EBF7; color: #ffffff; font-size: 20px; 
+			font-family: sans-serif; 
+			color: black; text-align: center;
+		}
+		h2.sub {
+		    font-size:50px; 
+		    font-style:normal; 
+		    text-align: center; 
+		    color:#8E1F72;
+	}
+	.centrar {
+		text-align:center;
+		
+	}
+	.video {
+border:3px solid #A6EBF7;
+	}
+	
+		.desti {
+	font-size:30px; 
+		    font-style:normal; 
+		    text-align: center; 
+		    color:#8E1F72;
+		}
+		p.texti {
+           font-size:15px; 
+           font-style:normal; 
+           text-align: left; 
+           color: #8E1F72;
+       }
+       .sty {
+       	border:3px solid #A6EBF7;
+       }
+       .enla {
+       text-align: center;
+   }
+   .mundo {
+   font-size:55px; 
+		    font-style:italic; 
+		    text-align: center; 
+		    color:#3633FF;
+		}
+		.infin{
+		font-size:30px; 
+		    font-style:normal; 
+		    text-align: left; 
+		    color:#8E1F72;
+	}
+	.texto {
+		font-size:20px; 
+           font-style:normal; 
+           text-align: center; 
+           color: black;
+	}
+
