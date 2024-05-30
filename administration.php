@@ -1,23 +1,29 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Administración</title>
-	<link rel="stylesheet" type="text/css" href="css\estilos.css"></link>
-	
-	
-</head>
 <body>
+<?php
+include('partial/header.php');
+?>
+  <main role="main">
 
-<?php require 'Partial/header.php' ?>
-<?php require_once "database.php";?>
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Administración</h1>
+          <p></p>
+          <p><a class="btn btn-primary btn-lg" href="admin_reservas.php" role="button">Reservas »</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="admin_clientes.php" role="button">Clientes »</a></p>
 
-<br>
-<br>
-<br>
-<body>
-  <h2 class="title"><a href="admin_reservas.php">Reservas</a> </h2>
-  <h2 class="title"><a href="admin_clientes.php">Clientes</a> </h2>
+
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+        
+      </div> <!-- /container -->
+    </main>
+
+<?php
+    include('partial/footer.php');
+?>
 </body>
-</html>

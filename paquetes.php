@@ -1,24 +1,10 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Paquetes - Viajes Colombia</title>
-	<link rel="stylesheet" type="text/css" href="css\estilos.css"></link>
-</head>
-
 <body>
-  <?php require_once "database.php";?>
-	<?php require 'Partial/header.php'   ?>
-  
-  <?php
-  
-  
+<?php
+include('partial/header.php');
+require_once "database.php";
+	
   if (isset($_POST["reserva"])) {
-      
-
-    
-      
     $finicio = $_POST["fecha_inicio"];
     $ffin = $_POST["fecha_fin"];
     $precio_total = 0;//$_POST["Contraseña"];
@@ -39,76 +25,63 @@
     }
     
   }
-  
-  ?>
-<body>
-  <br>
-  <br>
-  <br>
-  
-<h2 class="title">Informacion de los paquetes disponibles</h2>
-  <center>
-     
-    <section>
-      <article>
-        <table border="1" bgcolor="#D6EAF8">
-          <tr>
-            <th class="tbl">Nombre</th>
-            <th class="tbl">Descripcion</th>
-            <th class="tbl">Destino</th>
-            <th class="tbl">Tipo</th>
-            <th class="tbl">Precio</th>
-            
-      
-          </tr>
+?>
+  <main role="main">
 
-          <?php
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Paquetes de viaje</h1>
+          <p>Informacion de los paquetes disponibles</p>
+
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <?php
                  $sql = "SELECT paquetes.Nombre_paquete, paquetes.Descripcion, destinos.Nombre_Destino, paquetes.Precio_total, destinos.Descripcion as Tipo FROM paquetes, destinos WHERE paquetes.ID_Destino = destinos.ID_Destino";
                  $result = mysqli_query($conn, $sql);
            while ($row = mysqli_fetch_object($result)){
-              echo "<tr><td class='tb'>" ;
-              echo $row->Nombre_paquete;
-              echo "</td>";
 
-              echo "<td class='tb'>" ;
-              echo $row->Descripcion;
-              echo "</td>";
-
-              echo "<td class='tb'>" ;
-              echo $row->Nombre_Destino;
-              echo "</td>";
-
-              echo "<td class='tb'>" ;
-              echo $row->Tipo;
-              echo "</td>";
-
-              echo "<td class='tb'>" ;
-              echo $row->Precio_total;
-              echo " Euros </td>";
-             
+            
+              echo 
+              "
+                  <div class='col'>
+                  <div class='card mb- rounded-3 shadow-sm'>
+                    <div class='card-header py-3'>
+                      <h4 class='my-0 fw-normal'>$row->Nombre_paquete</h4>
+                    </div>
+                    <div class='card-body'>
+                      <h1 class='card-title pricing-card-title'>$row->Precio_total €<small class='text-body-secondary fw-light'></small></h1>
+                      <ul class='list-unstyled mt-3 mb-4'>
+                        <li>$row->Descripcion</li>
+                        <li>$row->Nombre_Destino</li>
+                        <li>$row->Tipo</li>
+                        
+                      </ul>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+              ";
               
 
            }
           ?>
-        </table>
 
-      </article>
-    </section>
-  
-  </center>
-  <?php
+<a type="button" href="reserva.php" class="w-100 btn btn-lg btn-outline-primary">Reservar</a>
 
-  
-        if (isset($_SESSION["user"])) {
-          
-          echo "<center><h2><a href='reserva.php'>Reserva ya!!</a></h2></center>";
-          }else 
-          {
-            echo "<center><h2><a href='login.php'>Reserva ya!!</a></h2></center>";
+        </div>
+        </div>
+        <hr>
+      </div> <!-- /container -->
+    </main>
 
-          }
-  ?>
-  
-
+<?php
+    include('partial/footer.php');
+?>
 </body>
-</html>

@@ -1,37 +1,32 @@
+
+<body>
 <?php
-
+include('partial/header.php');
 ?>
+  <main role="main">
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Tours Viajes Colombia</title>
-	<link rel="stylesheet" type="text/css" href="css\estilos.css"></link>
-	
-	
-</head>
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Aerolineas</h1>
+          <p>Estas compañías están a la vanguardia en seguridad, innovación y lanzamiento de nuevas aeronaves. Para tomar una decisión informada, también debemos considerar factores como accidentes recientes, auditorías regulatorias, edad de la flota y capacitación de las tripulaciones3. ¡Feliz vuelo! ✈️</p>
 
-<body>
-	<?php require 'Partial/header.php' ?>
-<body>
-  <br>
-  <br>
-  <br>
-  
-<h2 class="title">Escoge una Aerolínea segura</h2>
-  <center>
+        </div>
+      </div>
 
-    <img src="Fichas\avionB.jpg" alt="avionB" width="400" height="200"/>  
-    <section>
-      <article>
-        <table border="1" bgcolor="#D6EAF8">
-          <tr>
-            <th class="tbl">Clave</th>
-            <th class="tbl">Aerolínea</th>
-            <th class="tbl">Aviones</th>
-            <th class="tbl">Vuelos</th>
-          </tr>
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="tbl">Clave</th>
+              <th class="tbl">Aerolínea</th>
+              <th class="tbl">Aviones</th>
+              <th class="tbl">Vuelos</th>
+            </tr>
+          </thead>
+          <tbody>
           <tr>
             <td class="tb">AV</td>
             <td class="tb">Avianca</td>
@@ -68,8 +63,14 @@
                 <img src="Fichas\vi.jpg" width="120" height="120"></a>
               </td>
             </tr>
-      </article>
-    </section>
-  </center>
+          </tbody>
+        </table>
+        </div>
+        <hr>
+      </div> <!-- /container -->
+    </main>
+
+<?php
+    include('partial/footer.php');
+?>
 </body>
-</html>
