@@ -138,8 +138,19 @@
         }
         $id_cliente = $_SESSION["idcliente"];
         $id_empleado = 30;
+       $id_temporada = $_POST["select_temporada"]; // Suponiendo que el usuario selecciona la temporada en un formulario
+        
+        // Mapeo de niveles de temporada a valores numéricos
+        $temporada_values = array(
+            "alta" => 1,
+            "media" => 2,
+            "baja" => 3
+        );
+
+        // Verificar si la temporada seleccionada está en el mapeo, de lo contrario, establecer un valor predeterminado
+       
           
-        $sql4 = "INSERT INTO reservas (Fecha_Inicio, Fecha_fin, Precio_total, ID_paquete, ID_cliente, ID_Empleado) VALUES ('$finicio', '$ffin', '$precio_total', '$id_paquete', '$id_cliente','$id_empleado')";
+        $sql4 = "INSERT INTO reservas (Fecha_Inicio, Fecha_fin, Precio_total, ID_paquete, ID_cliente, ID_Empleado, ID_temporada) VALUES ('$finicio', '$ffin', '$precio_total', '$id_paquete', '$id_cliente','$id_empleado', '$id_temporada')";
         //$sql3 = "INSERT INTO reservas (Fecha_Inicio, Fecha_fin, Precio_total, ID_paquete, ID_cliente, ID_Empleado) VALUES ( ?, ?, ?, ? ,? ,? )";
         $stmt3 = mysqli_stmt_init($conn);
         $prepareStmt3 = mysqli_stmt_prepare($stmt3,$sql4);
@@ -206,10 +217,28 @@
              
             </div>
             <div>
+             <br>
+              <label>Temporada:</label>
+              <br>
+              <br>
+              <select name="select_temporada" id="select_temporada">
+                 <?php
+                 $sql_temporadas = "SELECT id_temporada, Nombre_Temporada FROM temporadas";
+                 $result_temporadas = mysqli_query($conn, $sql_temporadas);
+                 while ($row_temporada = mysqli_fetch_assoc($result_temporadas)) {
+                     $id_temporada = $row_temporada['id_temporada'];
+                     $nombre_temporada = $row_temporada['Nombre_Temporada'];
+                     echo '<option value="' . $id_temporada . '">' . $nombre_temporada . '</option>';
+                 }
+                 ?>
+             </select>
+            </div>
+            <div>
               <br>
               <input name="reserva" type="submit"/>
             </div>
         </form>
+       
        
           </div>
       </article>
@@ -274,6 +303,8 @@
            }
           ?>
         </table>
+        <br>
+        <br>
       </article>
     </section>
   
@@ -281,59 +312,4 @@
 
 </body>
 
-<hr>
-<div class="container">
-
-<H1> BUSCADOR</H1>
-<form action="reserva.php" method="POST" target="_blank">
-  <p>
-    <input type="search" name="buscar">
-    <br>
-    <br>
-  <input type="submit" value="Buscar">
-</p>
-</form>
-</div>
-
-<div class="centered-table">
-<?php
-// Verificar si se ha enviado un formulario y el campo 'buscar' está definido
-if (isset($_POST['buscar'])) {
-    // Establecer la variable $buscar con el valor del campo 'buscar' del formulario
-    $buscar = $_POST['buscar'];
-
-    // Realizar la consulta SQL solo si $buscar está definido
-    $SQL_READ = "SELECT * FROM clientes WHERE Nombre LIKE '%" . $buscar . "%' OR Apellido LIKE '%" . $buscar . "%' OR Email LIKE '%" . $buscar . "%'";
-    $sql_query = mysqli_query($conn, $SQL_READ);
-
-    // Comprobar si hay resultados de la consulta y mostrarlos en la tabla
-    if ($sql_query && mysqli_num_rows($sql_query) > 0) {
-        echo "<table border='2px'>";
-        echo "<thead><th>Nombre</th><th>Apellido</th><th>Email</th></thead>";
-        echo "<tbody>";
-        while ($row = mysqli_fetch_array($sql_query)) {
-            echo "<tr>";
-            echo "<td>" . $row['Nombre'] . "</td>";
-            echo "<td>" . $row['Apellido'] . "</td>";
-            echo "<td>" . $row['Email'] . "</td>";
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>";
-    } else {
-        echo "No se encontraron resultados.";
-    }
-} else {
-    echo "No se ha enviado ningún formulario.";
-}
-?>
-
-</div>
-
-
-
-
-
-
 </html>
-

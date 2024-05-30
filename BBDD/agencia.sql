@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-04-2024 a las 14:32:14
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 30-05-2024 a las 09:43:36
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `agencia`
 --
+DROP DATABASE `agencia`
 CREATE DATABASE IF NOT EXISTS `agencia` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `agencia`;
 
@@ -29,7 +30,6 @@ USE `agencia`;
 -- Estructura de tabla para la tabla `cargo`
 --
 
-DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE `cargo` (
   `ID_cargo` int(11) NOT NULL,
   `Descripción` varchar(20) NOT NULL
@@ -49,7 +49,6 @@ INSERT INTO `cargo` (`ID_cargo`, `Descripción`) VALUES
 -- Estructura de tabla para la tabla `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `ID_Cliente` int(2) NOT NULL,
   `Nombre` varchar(20) NOT NULL,
@@ -66,9 +65,9 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Fecha_registro`, `Contrasena`, `num_rva`, `ID_cargo`) VALUES
-(10, 'Juan', 'Lopez', 'lopez@gmail.com', '0000-00-00', '1234', 0, 1),
+(10, 'Juan', 'Lopez', 'lopez@gmail.com', '0000-00-00', '1234', 149, 1),
 (11, 'Camila11', 'Garcia', 'camila@gmail.com', '0000-00-00', '', 0, 0),
-(12, 'Maria1', 'Diaz', 'Maria11@gmail.com', '0000-00-00', '123', 0, 0),
+(12, 'Maria1', 'Diaz', 'Maria11@gmail.com', '0000-00-00', '123', 145, 0),
 (13, 'Judith', 'Diez', 'judith@gmail.com', '0000-00-00', '', 0, 0),
 (14, 'Miguel', 'Cervantes', 'Miguel@test.com', '0000-00-00', 'test', 0, 0),
 (15, 'Sara', 'Corrales', 'sara@gmail.com', '0000-00-00', '', 0, 0),
@@ -76,12 +75,11 @@ INSERT INTO `clientes` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Fecha_regi
 (24, 'Luna', '', 'luna@gmail.com', '2024-01-21', '123', 0, 0),
 (29, 'camilo', '', 'camilo@hotmail.com', '2024-03-04', '123', 0, 1),
 (31, 'Mario', 'Garcia', 'mario@garcia.com', '2024-04-08', '123', 0, 0),
-(35, 'admin', '', 'admin@agencia.com', '2024-04-12', 'test', 0, 1);
+(35, 'admin', '', 'admin@agencia.com', '2024-04-12', 'test', 120, 1);
 
 --
 -- Disparadores `clientes`
 --
-DROP TRIGGER IF EXISTS `actualizar_fecha_registro`;
 DELIMITER $$
 CREATE TRIGGER `actualizar_fecha_registro` BEFORE INSERT ON `clientes` FOR EACH ROW SET NEW.Fecha_registro =NOW()
 $$
@@ -93,7 +91,6 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `destinos`
 --
 
-DROP TABLE IF EXISTS `destinos`;
 CREATE TABLE `destinos` (
   `ID_Destino` int(2) NOT NULL,
   `Nombre_destino` varchar(20) NOT NULL,
@@ -119,7 +116,6 @@ INSERT INTO `destinos` (`ID_Destino`, `Nombre_destino`, `Descripcion`, `Precio_p
 -- Estructura de tabla para la tabla `empleados`
 --
 
-DROP TABLE IF EXISTS `empleados`;
 CREATE TABLE `empleados` (
   `ID_empleado` int(2) NOT NULL,
   `Nombre` varchar(20) NOT NULL,
@@ -147,7 +143,6 @@ INSERT INTO `empleados` (`ID_empleado`, `Nombre`, `Apellido`, `Cargo`, `Email`, 
 -- Estructura de tabla para la tabla `pagos`
 --
 
-DROP TABLE IF EXISTS `pagos`;
 CREATE TABLE `pagos` (
   `ID_pago` int(2) NOT NULL,
   `Fecha_pago` date NOT NULL,
@@ -161,7 +156,6 @@ CREATE TABLE `pagos` (
 -- Estructura de tabla para la tabla `paquetes`
 --
 
-DROP TABLE IF EXISTS `paquetes`;
 CREATE TABLE `paquetes` (
   `ID_paquete` int(2) NOT NULL,
   `Nombre_paquete` varchar(20) NOT NULL,
@@ -188,7 +182,6 @@ INSERT INTO `paquetes` (`ID_paquete`, `Nombre_paquete`, `Descripcion`, `Precio_t
 -- Estructura de tabla para la tabla `reservas`
 --
 
-DROP TABLE IF EXISTS `reservas`;
 CREATE TABLE `reservas` (
   `ID_reserva` int(2) NOT NULL,
   `Fecha_inicio` date NOT NULL,
@@ -196,29 +189,73 @@ CREATE TABLE `reservas` (
   `Precio_total` int(10) NOT NULL,
   `ID_paquete` int(2) NOT NULL,
   `ID_cliente` int(2) NOT NULL,
-  `ID_empleado` int(2) NOT NULL
+  `ID_empleado` int(2) NOT NULL,
+  `id_temporada` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reservas`
 --
 
-INSERT INTO `reservas` (`ID_reserva`, `Fecha_inicio`, `Fecha_fin`, `Precio_total`, `ID_paquete`, `ID_cliente`, `ID_empleado`) VALUES
-(69, '2024-04-12', '2024-04-26', 2200, 54, 10, 30),
-(70, '2024-04-12', '2024-04-26', 2200, 54, 10, 30),
-(71, '2024-04-12', '2024-04-26', 2100, 52, 10, 30),
-(105, '2024-04-12', '2024-04-26', 2200, 54, 23, 30);
+INSERT INTO `reservas` (`ID_reserva`, `Fecha_inicio`, `Fecha_fin`, `Precio_total`, `ID_paquete`, `ID_cliente`, `ID_empleado`, `id_temporada`) VALUES
+(69, '2024-04-25', '2024-04-28', 2000, 51, 15, 30, 2),
+(70, '2024-04-12', '2024-04-26', 2000, 51, 10, 30, 3),
+(71, '2024-04-12', '2024-04-26', 2100, 52, 10, 30, 1),
+(105, '2024-04-12', '2024-04-26', 2200, 54, 23, 30, 2),
+(119, '2024-04-10', '2024-04-18', 2100, 52, 35, 30, 1),
+(120, '2024-04-24', '2024-05-07', 2000, 51, 35, 30, 0),
+(121, '2024-04-03', '2024-04-19', 1900, 50, 12, 30, 0),
+(122, '2024-04-24', '2024-04-24', 2000, 51, 12, 30, 0),
+(123, '2024-04-24', '2024-04-24', 2000, 51, 12, 30, 0),
+(124, '2024-04-25', '2024-04-06', 2000, 51, 12, 30, 0),
+(125, '2024-04-10', '2024-04-20', 2100, 52, 12, 30, 0),
+(133, '2024-04-04', '2024-04-04', 2000, 51, 12, 30, 0),
+(134, '2024-04-10', '2024-04-19', 2200, 53, 12, 30, 0),
+(135, '2024-04-10', '2024-04-19', 2200, 53, 12, 30, 0),
+(136, '2024-04-11', '2024-04-11', 2200, 53, 12, 30, 0),
+(137, '2024-04-11', '2024-04-11', 2200, 53, 12, 30, 0),
+(138, '2024-04-11', '2024-04-11', 2200, 53, 12, 30, 0),
+(139, '2024-04-18', '2024-04-12', 2000, 51, 12, 30, 0),
+(140, '2024-04-18', '2024-04-12', 2000, 51, 12, 30, 1),
+(141, '2024-04-12', '2024-04-19', 2100, 52, 12, 30, 1),
+(142, '2024-04-12', '2024-04-19', 2100, 52, 12, 30, 1),
+(143, '2024-04-04', '2024-04-25', 2100, 52, 12, 30, 1),
+(144, '2024-04-04', '2024-04-25', 2100, 52, 12, 30, 3),
+(145, '2024-04-18', '2024-04-20', 1900, 50, 12, 30, 3),
+(146, '2024-04-10', '2024-04-18', 2000, 51, 10, 30, 2),
+(147, '2024-04-11', '2024-04-26', 2100, 52, 10, 30, 3),
+(148, '2024-04-03', '2024-04-04', 1900, 50, 11, 30, 3),
+(149, '2024-04-23', '2024-04-25', 1900, 50, 14, 30, 0);
 
 --
 -- Disparadores `reservas`
 --
-DROP TRIGGER IF EXISTS `update_num_rva`;
 DELIMITER $$
 CREATE TRIGGER `update_num_rva` AFTER INSERT ON `reservas` FOR EACH ROW update clientes   
   set num_rva = NEW.ID_reserva
   where ID_Cliente = NEW.ID_cliente
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `temporadas`
+--
+
+CREATE TABLE `temporadas` (
+  `id_temporada` int(11) NOT NULL DEFAULT 1,
+  `Nombre_Temporada` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `temporadas`
+--
+
+INSERT INTO `temporadas` (`id_temporada`, `Nombre_Temporada`) VALUES
+(1, 'Alta'),
+(2, 'media'),
+(3, 'baja');
 
 --
 -- Índices para tablas volcadas
@@ -270,7 +307,14 @@ ALTER TABLE `paquetes`
 ALTER TABLE `reservas`
   ADD PRIMARY KEY (`ID_reserva`,`ID_paquete`,`ID_cliente`,`ID_empleado`),
   ADD KEY `ID_empleado` (`ID_empleado`),
-  ADD KEY `ID_cliente` (`ID_cliente`);
+  ADD KEY `ID_cliente` (`ID_cliente`),
+  ADD KEY `fk_reservas_pais` (`id_temporada`);
+
+--
+-- Indices de la tabla `temporadas`
+--
+ALTER TABLE `temporadas`
+  ADD PRIMARY KEY (`id_temporada`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -292,7 +336,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `ID_reserva` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `ID_reserva` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- Restricciones para tablas volcadas

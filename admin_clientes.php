@@ -2,15 +2,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Admin Clientes</title>
-	<link rel="stylesheet" type="text/css" href="css\estilos.css"></link>
-	
-	
+    <meta charset="UTF-8">
+    <title>Admin Clientes</title>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <style>
+       .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container form {
+    text-align: center;
+}
+
+.container input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.container input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+</style>
 </head>
 
 <body>
-
 
 <?php
 require 'Partial/header.php';
@@ -24,15 +61,23 @@ if (isset($_POST["submit"])) {
 ?>
 
 <br>
-	<br>
-	<br>
-<h2 class="title">Clientes </h2>
-<h2 class="title">Buscar </h2>
+  <br>
+  <br>
+  <div class="container">
+<h2><center>Clientes</center></h2>
+<h2><center>Buscar</center></h2>
     <form action="admin_clientes.php" method="post">
         <label>Nombre del cliente</label>
         <input type="text" name="nombre_cliente"/>
+        <br>
+        <br>
         <input type="submit" value="Buscar..." name="submit">
     </form>
+  </div>
+
+</body>
+</html>
+
   <center>
   
     <section>
