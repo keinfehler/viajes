@@ -28,6 +28,7 @@ if (isset($_POST["submit"])) {
     $updated_cliente = $_POST['select_cliente'];
     $updated_temporada = $_POST['select_temporada'];
     $updated_estado = $_POST['select_estado'];
+    $updated_comercial = $_POST['select_comercial'];
 
 
     $sql4 = "SELECT * FROM paquetes WHERE ID_paquete = '$updated_paquete'";
@@ -40,7 +41,7 @@ if (isset($_POST["submit"])) {
     $update_query = "UPDATE reservas SET Fecha_inicio='$updated_inicio', Fecha_fin='$updated_fin', Precio_total='$precio_total', ID_paquete='$updated_paquete', ID_cliente='$updated_cliente', id_temporada='$updated_temporada' WHERE ID_reserva='$id_reserva'";
     mysqli_query($conn, $update_query);
 
-    $update_oferta_query = "UPDATE ofertas SET Estado = '$updated_estado' WHERE ClienteID='$updated_cliente' AND PaqueteID='$updated_paquete'";
+    $update_oferta_query = "UPDATE ofertas SET Estado = '$updated_estado', ComercialID = '$updated_comercial' WHERE ClienteID='$updated_cliente' AND PaqueteID='$updated_paquete'";
     mysqli_query($conn, $update_oferta_query);
 
     header("Location: admin_reservas.php");
@@ -53,6 +54,7 @@ $paquete ="";
 $cliente = "";
 $temporada = "";
 $estado = "";
+$comercial = "";
 $estados = array(
     "ofertado" => "ofertado",
     "aceptado" => "aceptado",
@@ -75,6 +77,7 @@ if (isset($_SESSION["user"])) {
         $cliente = $row->ID_cliente;
         $temporada = $row->id_temporada;
         $estado = $row -> Estado;
+        $comercial = $row -> ComercialID;
     }
     }
 
@@ -181,6 +184,30 @@ while ($row_temporada = mysqli_fetch_object($resultP)) {
             }
             ?>
         </select>
+</div>
+
+<div class="form-floating">
+         <label>Comercial:</label>
+         <br>
+        <select class="form-control" name="select_comercial" id="select_comercial">
+			<?php
+						$sqlCO = "SELECT ComercialID, Nombre_comercial FROM comerciales";
+						$resultCO = mysqli_query($conn, $sqlCO);
+
+						while ($row_comercial = mysqli_fetch_object($resultCO)) {
+						    $isSelectedco = "";
+						    if ($row_comercial->ComercialID == $comercial) {
+						        $isSelectedco = "selected";
+						    }
+						    echo '<option ' . $isSelectedco . ' value="' . $row_comercial->ComercialID . '">' . $row_comercial->Nombre_comercial . '</option>';
+						}
+			?>
+		</select>
+
+
+
+
+
 </div>
 
 

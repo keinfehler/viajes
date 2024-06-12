@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2024 a las 11:19:33
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 12-06-2024 a las 18:18:45
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `agencia`
 --
-DROP DATABASE `agencia`
 CREATE DATABASE IF NOT EXISTS `agencia` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `agencia`;
 
@@ -30,6 +29,7 @@ USE `agencia`;
 -- Estructura de tabla para la tabla `cargo`
 --
 
+DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE `cargo` (
   `ID_cargo` int(11) NOT NULL,
   `Descripción` varchar(20) NOT NULL
@@ -49,6 +49,7 @@ INSERT INTO `cargo` (`ID_cargo`, `Descripción`) VALUES
 -- Estructura de tabla para la tabla `clientes`
 --
 
+DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `ID_Cliente` int(2) NOT NULL,
   `Nombre` varchar(20) NOT NULL,
@@ -66,7 +67,7 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Fecha_registro`, `Contrasena`, `num_rva`, `ID_cargo`) VALUES
 (10, 'Juan', 'Lopez', 'lopez@gmail.com', '0000-00-00', '1234', 149, 1),
-(11, 'Camila11', 'Garcia', 'camila@gmail.com', '0000-00-00', '', 0, 0),
+(11, 'Camila11', 'Garcia', 'camila@gmail.com', '0000-00-00', '1234', 0, 0),
 (12, 'Maria1', 'Diaz', 'Maria11@gmail.com', '0000-00-00', '123', 145, 0),
 (13, 'Judith', 'Diez', 'judith@gmail.com', '0000-00-00', '', 0, 0),
 (14, 'Miguel', 'Cervantes', 'Miguel@test.com', '0000-00-00', 'test', 0, 0),
@@ -80,6 +81,7 @@ INSERT INTO `clientes` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Fecha_regi
 --
 -- Disparadores `clientes`
 --
+DROP TRIGGER IF EXISTS `actualizar_fecha_registro`;
 DELIMITER $$
 CREATE TRIGGER `actualizar_fecha_registro` BEFORE INSERT ON `clientes` FOR EACH ROW SET NEW.Fecha_registro =NOW()
 $$
@@ -91,9 +93,10 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `comerciales`
 --
 
+DROP TABLE IF EXISTS `comerciales`;
 CREATE TABLE `comerciales` (
   `ComercialID` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `Nombre_comercial` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Telefono` varchar(15) DEFAULT NULL,
   `FechaContratacion` date DEFAULT NULL
@@ -103,7 +106,7 @@ CREATE TABLE `comerciales` (
 -- Volcado de datos para la tabla `comerciales`
 --
 
-INSERT INTO `comerciales` (`ComercialID`, `Nombre`, `Email`, `Telefono`, `FechaContratacion`) VALUES
+INSERT INTO `comerciales` (`ComercialID`, `Nombre_comercial`, `Email`, `Telefono`, `FechaContratacion`) VALUES
 (1, 'Juan Perez', 'juan.perez@example.com', '555-1234', '2022-01-15'),
 (2, 'Ana Gómez', 'ana.gomez@example.com', '555-5678', '2021-03-22');
 
@@ -113,6 +116,7 @@ INSERT INTO `comerciales` (`ComercialID`, `Nombre`, `Email`, `Telefono`, `FechaC
 -- Estructura de tabla para la tabla `destinos`
 --
 
+DROP TABLE IF EXISTS `destinos`;
 CREATE TABLE `destinos` (
   `ID_Destino` int(2) NOT NULL,
   `Nombre_destino` varchar(20) NOT NULL,
@@ -138,6 +142,7 @@ INSERT INTO `destinos` (`ID_Destino`, `Nombre_destino`, `Descripcion`, `Precio_p
 -- Estructura de tabla para la tabla `empleados`
 --
 
+DROP TABLE IF EXISTS `empleados`;
 CREATE TABLE `empleados` (
   `ID_empleado` int(2) NOT NULL,
   `Nombre` varchar(20) NOT NULL,
@@ -165,6 +170,7 @@ INSERT INTO `empleados` (`ID_empleado`, `Nombre`, `Apellido`, `Cargo`, `Email`, 
 -- Estructura de tabla para la tabla `ofertas`
 --
 
+DROP TABLE IF EXISTS `ofertas`;
 CREATE TABLE `ofertas` (
   `OfertaID` int(11) NOT NULL,
   `ComercialID` int(11) NOT NULL,
@@ -179,10 +185,18 @@ CREATE TABLE `ofertas` (
 --
 
 INSERT INTO `ofertas` (`OfertaID`, `ComercialID`, `ClienteID`, `PaqueteID`, `Estado`, `FechaOferta`) VALUES
-(5, 1, 10, 50, 'ofertado', '2023-06-10'),
-(6, 2, 11, 51, 'aceptado', '2023-06-11'),
-(7, 2, 36, 53, 'ofertado', '2024-06-12'),
-(16, 1, 36, 52, 'pagado', '2024-06-12');
+(32, 2, 15, 51, 'ofertado', '2024-06-12'),
+(33, 2, 10, 51, 'ofertado', '2024-06-12'),
+(34, 1, 10, 52, 'ofertado', '2024-06-12'),
+(35, 2, 23, 54, 'ofertado', '2024-06-12'),
+(36, 2, 35, 52, 'ofertado', '2024-06-12'),
+(37, 2, 35, 51, 'ofertado', '2024-06-12'),
+(38, 2, 12, 50, 'ofertado', '2024-06-12'),
+(39, 2, 12, 51, 'ofertado', '2024-06-12'),
+(40, 2, 12, 52, 'ofertado', '2024-06-12'),
+(41, 2, 12, 53, 'ofertado', '2024-06-12'),
+(42, 1, 11, 50, 'aceptado', '2024-06-12'),
+(43, 2, 14, 50, 'ofertado', '2024-06-12');
 
 -- --------------------------------------------------------
 
@@ -190,6 +204,7 @@ INSERT INTO `ofertas` (`OfertaID`, `ComercialID`, `ClienteID`, `PaqueteID`, `Est
 -- Estructura de tabla para la tabla `pagos`
 --
 
+DROP TABLE IF EXISTS `pagos`;
 CREATE TABLE `pagos` (
   `ID_pago` int(2) NOT NULL,
   `Fecha_pago` date NOT NULL,
@@ -203,6 +218,7 @@ CREATE TABLE `pagos` (
 -- Estructura de tabla para la tabla `paquetes`
 --
 
+DROP TABLE IF EXISTS `paquetes`;
 CREATE TABLE `paquetes` (
   `ID_paquete` int(2) NOT NULL,
   `Nombre_paquete` varchar(20) NOT NULL,
@@ -229,6 +245,7 @@ INSERT INTO `paquetes` (`ID_paquete`, `Nombre_paquete`, `Descripcion`, `Precio_t
 -- Estructura de tabla para la tabla `reservas`
 --
 
+DROP TABLE IF EXISTS `reservas`;
 CREATE TABLE `reservas` (
   `ID_reserva` int(2) NOT NULL,
   `Fecha_inicio` date NOT NULL,
@@ -277,6 +294,7 @@ INSERT INTO `reservas` (`ID_reserva`, `Fecha_inicio`, `Fecha_fin`, `Precio_total
 --
 -- Disparadores `reservas`
 --
+DROP TRIGGER IF EXISTS `update_num_rva`;
 DELIMITER $$
 CREATE TRIGGER `update_num_rva` AFTER INSERT ON `reservas` FOR EACH ROW update clientes   
   set num_rva = NEW.ID_reserva
@@ -290,6 +308,7 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `temporadas`
 --
 
+DROP TABLE IF EXISTS `temporadas`;
 CREATE TABLE `temporadas` (
   `id_temporada` int(11) NOT NULL DEFAULT 1,
   `Nombre_Temporada` varchar(11) NOT NULL
@@ -405,7 +424,7 @@ ALTER TABLE `comerciales`
 -- AUTO_INCREMENT de la tabla `ofertas`
 --
 ALTER TABLE `ofertas`
-  MODIFY `OfertaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `OfertaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
@@ -416,14 +435,6 @@ ALTER TABLE `reservas`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `ofertas`
---
-ALTER TABLE `ofertas`
-  ADD CONSTRAINT `ofertas_ibfk_1` FOREIGN KEY (`ComercialID`) REFERENCES `comerciales` (`ComercialID`),
-  ADD CONSTRAINT `ofertas_ibfk_2` FOREIGN KEY (`ClienteID`) REFERENCES `clientes` (`ID_Cliente`),
-  ADD CONSTRAINT `ofertas_ibfk_3` FOREIGN KEY (`PaqueteID`) REFERENCES `paquetes` (`ID_paquete`);
 
 --
 -- Filtros para la tabla `pagos`

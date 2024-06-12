@@ -136,11 +136,11 @@ if (isset($_POST["reserva"]) & isset($_POST["select_paquete"]) & isset($_POST["s
               <select class="form-control" name="select_comercial" id="select_comercial">
               <option value="0">Selecciona un comercial...</option> 
                 <?php
-                $sql_comerciales = "SELECT ComercialID, Nombre from comerciales";
+                $sql_comerciales = "SELECT ComercialID, Nombre_comercial from comerciales";
                 $result_comerciales = mysqli_query($conn,$sql_comerciales);
                 while ($row_comercial = mysqli_fetch_assoc($result_comerciales)) {
                   $id_comercial = $row_comercial['ComercialID'];
-                  $nombre_comercial = $row_comercial['Nombre'];
+                  $nombre_comercial = $row_comercial['Nombre_comercial'];
                   echo '<option value="' . $id_comercial . '">' . $nombre_comercial . '</option>';
                 }
                 ?>
