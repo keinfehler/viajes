@@ -27,6 +27,8 @@ if (isset($_POST["submit"])) {
     $updated_paquete = $_POST['select_paquete'];
     $updated_cliente = $_POST['select_cliente'];
     $updated_temporada = $_POST['select_temporada'];
+    $updated_estado = $_POST['select_estado'];
+
 
     $sql4 = "SELECT * FROM paquetes WHERE ID_paquete = '$updated_paquete'";
     $result5 = mysqli_query($conn, $sql4);
@@ -37,6 +39,10 @@ if (isset($_POST["submit"])) {
 
     $update_query = "UPDATE reservas SET Fecha_inicio='$updated_inicio', Fecha_fin='$updated_fin', Precio_total='$precio_total', ID_paquete='$updated_paquete', ID_cliente='$updated_cliente', id_temporada='$updated_temporada' WHERE ID_reserva='$id_reserva'";
     mysqli_query($conn, $update_query);
+
+    $update_oferta_query = "UPDATE ofertas SET Estado = '$updated_estado' WHERE ClienteID='$updated_cliente' AND PaqueteID='$updated_paquete'";
+    mysqli_query($conn, $update_oferta_query);
+
     header("Location: admin_reservas.php");
 }
 
@@ -46,11 +52,18 @@ $fin = "";
 $paquete ="";
 $cliente = "";
 $temporada = "";
-
+$estado = "";
+$estados = array(
+    "ofertado" => "ofertado",
+    "aceptado" => "aceptado",
+    "rechazado" => "rechazado",
+    "pagado" => "pagado"
+);
 
 
 if (isset($_SESSION["user"])) {
-    $query = "SELECT * FROM reservas WHERE ID_reserva = $id_reserva";
+    $query = "SELECT * FROM reservas LEFT JOIN ofertas ON 
+    reservas.ID_Cliente = ofertas.ClienteID AND reservas.ID_Paquete = ofertas.PaqueteID WHERE ID_reserva = $id_reserva";
     $result = mysqli_query($conn, $query);
 
 
@@ -60,7 +73,8 @@ if (isset($_SESSION["user"])) {
         $fin = $row->Fecha_fin;
         $paquete = $row->ID_paquete;
         $cliente = $row->ID_cliente;
-         $temporada = $row->id_temporada;
+        $temporada = $row->id_temporada;
+        $estado = $row -> Estado;
     }
     }
 
@@ -86,7 +100,7 @@ if (isset($_SESSION["user"])) {
 <div class="form-floating">
           <label>Inicio:</label>
           <input class="form-control" type="date" name="fecha_inicio" id="fecha_inicio"  value="<?php echo $inicio; ?>"  />
-                      <br>
+
 </div>
 <div class="form-floating">
           <label>Fin:</label>
@@ -129,7 +143,8 @@ if (isset($_SESSION["user"])) {
         }
         ?>
         </select>
-        <br>
+</div>
+<div class="form-floating">
          <label>Temporada:</label>
          <br>
         <select class="form-control" name="select_temporada" id="select_temporada">
@@ -146,7 +161,30 @@ while ($row_temporada = mysqli_fetch_object($resultP)) {
 ?>
 </select>
 
+
+
+
+
 </div>
+<div class="form-floating">
+<label>Estado:</label>
+         
+        <select class="form-control" name="select_estado" id="select_estado">
+           
+            <?php
+            foreach ($estados as &$e) {
+                $isSelectedP = "";
+                if ($e == $estado) {
+                    $isSelectedP = "selected";
+                }
+                echo '<option ' . $isSelectedP . ' value="' . $e . '">' . $e . '</option>';
+            }
+            ?>
+        </select>
+</div>
+
+
+<br/>
 <div class="form-floating">
         <input type="hidden" name="id_reserva" value="<?php echo $id_reserva; ?>"/>
        

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2024 a las 09:43:36
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 12-06-2024 a las 11:19:33
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,6 +88,28 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `comerciales`
+--
+
+CREATE TABLE `comerciales` (
+  `ComercialID` int(11) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Telefono` varchar(15) DEFAULT NULL,
+  `FechaContratacion` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `comerciales`
+--
+
+INSERT INTO `comerciales` (`ComercialID`, `Nombre`, `Email`, `Telefono`, `FechaContratacion`) VALUES
+(1, 'Juan Perez', 'juan.perez@example.com', '555-1234', '2022-01-15'),
+(2, 'Ana Gómez', 'ana.gomez@example.com', '555-5678', '2021-03-22');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `destinos`
 --
 
@@ -136,6 +158,31 @@ INSERT INTO `empleados` (`ID_empleado`, `Nombre`, `Apellido`, `Cargo`, `Email`, 
 (33, 'Viviana', 'Herrera', 'Administrativa', 'vivianagmail.com', 695847125),
 (34, 'Rodrigo', 'Caballero', 'Ejecutivo', 'rodrigo@gmail.com', 698523456),
 (35, 'Vanesa', 'Sanchez', 'Comercial', 'vanesa@gmail.com', 698521478);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ofertas`
+--
+
+CREATE TABLE `ofertas` (
+  `OfertaID` int(11) NOT NULL,
+  `ComercialID` int(11) NOT NULL,
+  `ClienteID` int(2) NOT NULL,
+  `PaqueteID` int(2) NOT NULL,
+  `Estado` enum('ofertado','aceptado','rechazado','pagado') DEFAULT 'ofertado',
+  `FechaOferta` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ofertas`
+--
+
+INSERT INTO `ofertas` (`OfertaID`, `ComercialID`, `ClienteID`, `PaqueteID`, `Estado`, `FechaOferta`) VALUES
+(5, 1, 10, 50, 'ofertado', '2023-06-10'),
+(6, 2, 11, 51, 'aceptado', '2023-06-11'),
+(7, 2, 36, 53, 'ofertado', '2024-06-12'),
+(16, 1, 36, 52, 'pagado', '2024-06-12');
 
 -- --------------------------------------------------------
 
@@ -276,6 +323,13 @@ ALTER TABLE `clientes`
   ADD KEY `ID_cargo_2` (`ID_cargo`);
 
 --
+-- Indices de la tabla `comerciales`
+--
+ALTER TABLE `comerciales`
+  ADD PRIMARY KEY (`ComercialID`),
+  ADD UNIQUE KEY `Email` (`Email`);
+
+--
 -- Indices de la tabla `destinos`
 --
 ALTER TABLE `destinos`
@@ -286,6 +340,15 @@ ALTER TABLE `destinos`
 --
 ALTER TABLE `empleados`
   ADD PRIMARY KEY (`ID_empleado`);
+
+--
+-- Indices de la tabla `ofertas`
+--
+ALTER TABLE `ofertas`
+  ADD PRIMARY KEY (`OfertaID`),
+  ADD UNIQUE KEY `OFERTA_UNICA` (`ComercialID`,`PaqueteID`,`ClienteID`) USING BTREE,
+  ADD KEY `ClienteID` (`ClienteID`),
+  ADD KEY `PaqueteID` (`PaqueteID`);
 
 --
 -- Indices de la tabla `pagos`
@@ -330,17 +393,37 @@ ALTER TABLE `cargo`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `ID_Cliente` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `ID_Cliente` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT de la tabla `comerciales`
+--
+ALTER TABLE `comerciales`
+  MODIFY `ComercialID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `ofertas`
+--
+ALTER TABLE `ofertas`
+  MODIFY `OfertaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `ID_reserva` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `ID_reserva` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `ofertas`
+--
+ALTER TABLE `ofertas`
+  ADD CONSTRAINT `ofertas_ibfk_1` FOREIGN KEY (`ComercialID`) REFERENCES `comerciales` (`ComercialID`),
+  ADD CONSTRAINT `ofertas_ibfk_2` FOREIGN KEY (`ClienteID`) REFERENCES `clientes` (`ID_Cliente`),
+  ADD CONSTRAINT `ofertas_ibfk_3` FOREIGN KEY (`PaqueteID`) REFERENCES `paquetes` (`ID_paquete`);
 
 --
 -- Filtros para la tabla `pagos`

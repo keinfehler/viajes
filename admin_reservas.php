@@ -49,6 +49,7 @@ if (isset($_POST["submit"])) {
         <th class="tbl">Descripcíon</th>
                    <th class="tbl">Destino</th>
          <th class="tbl">Temporada</th>
+         <th class="tbl">Estado</th>
         <th class="tbl">Precio</th>
         <th class="tbl"></th>
   
@@ -57,11 +58,12 @@ if (isset($_POST["submit"])) {
       <?php
 
 
-$sql6 = "SELECT r.ID_reserva, c.Nombre, r.Fecha_inicio, r.Fecha_fin, p.Nombre_paquete, p.Descripcion, d.Nombre_destino, t.Nombre_Temporada, r.Precio_total FROM reservas r
+$sql6 = "SELECT r.ID_reserva, c.Nombre, r.Fecha_inicio, r.Fecha_fin, p.Nombre_paquete, p.Descripcion, d.Nombre_destino, t.Nombre_Temporada, r.Precio_total, o.Estado FROM reservas r
                     INNER JOIN clientes c ON r.ID_cliente = c.ID_cliente
                     INNER JOIN paquetes p ON r.ID_paquete = p.ID_paquete
-                       INNER JOIN destinos d ON p.ID_destino = d.ID_destino
-                        INNER JOIN temporadas t ON r.ID_temporada = t.ID_temporada";
+                    INNER JOIN destinos d ON p.ID_destino = d.ID_destino
+                    INNER JOIN temporadas t ON r.ID_temporada = t.ID_temporada
+                    LEFT JOIN ofertas o ON  o.ClienteID = r.ID_Cliente AND o.PaqueteID = r.ID_Paquete";
 
             if ($id_reserva_buscar <> '')
                 $sql6 .= " WHERE r.ID_reserva = $id_reserva_buscar";
@@ -112,6 +114,10 @@ $sql6 = "SELECT r.ID_reserva, c.Nombre, r.Fecha_inicio, r.Fecha_fin, p.Nombre_pa
 
              echo "<td class='tb'>";
            echo $row->Nombre_destino;
+           echo "</td>";
+
+           echo "<td class='tb'>";
+           echo $row->Estado;
            echo "</td>";
 
              echo "<td class='tb'>";
