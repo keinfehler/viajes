@@ -13,15 +13,29 @@ if (isset($_POST["login"])) {
 
     
 
-    $result = mysqli_query($conn, $sql);
+    
 
+    $result = mysqli_query($conn, $sql);
+    $puntos = 0;
     
     while ($row = mysqli_fetch_object($result)){
         $pass = $row->Contrasena;
         $nombre = $row->Nombre;
         $id = $row->ID_Cliente;
         $cargo = $row->ID_cargo;
+        $puntos = $row->Puntos;
     }
+    $sqlMiembro = "SELECT * FROM Membresias";
+    $resultMiembro = mysqli_query($conn, $sqlMiembro);
+
+    $miembroTipo = "";
+    while ($row = mysqli_fetch_object($resultMiembro)){
+        $minPuntos = $row->PuntosMinimos;
+        if($puntos >= $minPuntos)
+            $miembroTipo = " - Miembro: " . $row->Nombre;
+        
+    }
+ 
 
     if (isset ($pass)){
         if ($password == $pass) {
@@ -30,8 +44,10 @@ if (isset($_POST["login"])) {
             $_SESSION["nombre"] = $nombre;
             $_SESSION["idcliente"] = $id;
             $_SESSION["idcargo"] = $cargo;
-            
+            $_SESSION["puntos"] = $puntos;
+            $_SESSION["miembroTipo"] = $miembroTipo;
             header("Location: reserva.php");
+            
             die();
         }else{
             echo "Contraseña Incorrecta";

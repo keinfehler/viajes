@@ -73,8 +73,17 @@
                 
 
                 echo "<img src='./imagenes/user.png' width='32' height='32' class='rounded-circle'><a href='userprofile.php'>&nbsp; ";
+                echo "";
                 echo $_SESSION["nombre"] ;
+                echo " <br/> ";
+                echo $_SESSION["puntos"] ;
+                echo " puntos";
+                echo $_SESSION["miembroTipo"] ;
                 echo "</a>";
+
+             
+                
+                
                 
                 
             }

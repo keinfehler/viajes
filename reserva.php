@@ -73,6 +73,17 @@ if (isset($_POST["reserva"]) & isset($_POST["select_paquete"]) & isset($_POST["s
           die("Algo ha fallado al instertar la oferta!");
       }
 
+      $sqlPuntos = "UPDATE Clientes SET Puntos = Puntos + 1 WHERE ID_Cliente = '$id_cliente'";
+      $stmtPuntosUsuario = mysqli_stmt_init($conn);
+      $prepareStmtPuntosUsuario = mysqli_stmt_prepare($stmtPuntosUsuario,$sqlPuntos);
+      if ($prepareStmtPuntosUsuario) {
+        mysqli_stmt_execute($stmtPuntosUsuario);
+        echo "<div class='alert alert-success'>Puntos anadidos.</div>";
+      }else{
+          die("Algo ha fallado al instertar los puntos anadidos!");
+      }
+
+
   }else 
   {
     echo "<div class='alert alert-success'>Por favor selecciona un paquete</div>";

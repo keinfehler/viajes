@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2024 a las 18:38:27
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 12-06-2024 a las 19:45:14
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -67,17 +67,17 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Fecha_registro`, `Contrasena`, `num_rva`, `ID_cargo`, `Puntos`) VALUES
-(10, 'Juan', 'Lopez', 'lopez@gmail.com', '0000-00-00', '1234', 149, 1, 0),
-(11, 'Camila11', 'Garcia', 'camila@gmail.com', '0000-00-00', '1234', 0, 0, 0),
-(12, 'Maria1', 'Diaz', 'Maria11@gmail.com', '0000-00-00', '123', 145, 0, 0),
+(10, 'Juan', 'Lopez', 'lopez@gmail.com', '0000-00-00', '1234', 149, 1, 4),
+(11, 'Camila', 'Garcia', 'camila@gmail.com', '0000-00-00', '1234', 172, 0, 6),
+(12, 'Maria1', 'Diaz', 'Maria11@gmail.com', '0000-00-00', '123', 145, 0, 18),
 (13, 'Judith', 'Diez', 'judith@gmail.com', '0000-00-00', '', 0, 0, 0),
-(14, 'Miguel', 'Cervantes', 'Miguel@test.com', '0000-00-00', 'test', 0, 0, 0),
-(15, 'Sara', 'Corrales', 'sara@gmail.com', '0000-00-00', '', 0, 0, 0),
-(23, 'viviana', '', 'v@gmail.com', '0000-00-00', '123', 0, 0, 0),
+(14, 'Miguel', 'Cervantes', 'Miguel@test.com', '0000-00-00', 'test', 0, 0, 1),
+(15, 'Sara', 'Corrales', 'sara@gmail.com', '0000-00-00', '', 0, 0, 1),
+(23, 'viviana', '', 'v@gmail.com', '0000-00-00', '123', 0, 0, 1),
 (24, 'Luna', '', 'luna@gmail.com', '2024-01-21', '123', 0, 0, 0),
 (29, 'camilo', '', 'camilo@hotmail.com', '2024-03-04', '123', 0, 1, 0),
 (31, 'Mario', 'Garcia', 'mario@garcia.com', '2024-04-08', '123', 0, 0, 0),
-(35, 'admin', '', 'admin@agencia.com', '2024-04-12', 'test', 120, 1, 0);
+(35, 'admin', '', 'admin@agencia.com', '2024-04-12', 'test', 120, 1, 2);
 
 --
 -- Disparadores `clientes`
@@ -219,7 +219,13 @@ INSERT INTO `ofertas` (`OfertaID`, `ComercialID`, `ClienteID`, `PaqueteID`, `Est
 (40, 2, 12, 52, 'ofertado', '2024-06-12'),
 (41, 2, 12, 53, 'ofertado', '2024-06-12'),
 (42, 1, 11, 50, 'aceptado', '2024-06-12'),
-(43, 2, 14, 50, 'ofertado', '2024-06-12');
+(43, 2, 14, 50, 'ofertado', '2024-06-12'),
+(47, 1, 11, 52, 'ofertado', '2024-06-12'),
+(48, 1, 11, 51, 'ofertado', '2024-06-12'),
+(49, 2, 11, 53, 'ofertado', '2024-06-12'),
+(51, 1, 11, 53, 'ofertado', '2024-06-12'),
+(53, 2, 11, 52, 'ofertado', '2024-06-12'),
+(56, 1, 11, 52, 'ofertado', '2024-06-12');
 
 -- --------------------------------------------------------
 
@@ -312,7 +318,8 @@ INSERT INTO `reservas` (`ID_reserva`, `Fecha_inicio`, `Fecha_fin`, `Precio_total
 (146, '2024-04-10', '2024-04-18', 2000, 51, 10, 30, 2),
 (147, '2024-04-11', '2024-04-26', 2100, 52, 10, 30, 3),
 (148, '2024-04-03', '2024-04-04', 1900, 50, 11, 30, 3),
-(149, '2024-04-23', '2024-04-25', 1900, 50, 14, 30, 0);
+(149, '2024-04-23', '2024-04-25', 1900, 50, 14, 30, 0),
+(164, '2024-06-12', '2024-06-21', 2000, 51, 11, 30, 3);
 
 --
 -- Disparadores `reservas`
@@ -394,7 +401,7 @@ ALTER TABLE `membresias`
 --
 ALTER TABLE `ofertas`
   ADD PRIMARY KEY (`OfertaID`),
-  ADD UNIQUE KEY `OFERTA_UNICA` (`ComercialID`,`PaqueteID`,`ClienteID`) USING BTREE,
+  ADD UNIQUE KEY `of_unica` (`OfertaID`,`ComercialID`,`PaqueteID`),
   ADD KEY `ClienteID` (`ClienteID`),
   ADD KEY `PaqueteID` (`PaqueteID`);
 
@@ -459,13 +466,13 @@ ALTER TABLE `membresias`
 -- AUTO_INCREMENT de la tabla `ofertas`
 --
 ALTER TABLE `ofertas`
-  MODIFY `OfertaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `OfertaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `ID_reserva` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `ID_reserva` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- Restricciones para tablas volcadas
