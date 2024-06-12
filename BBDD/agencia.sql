@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2024 a las 18:18:45
+-- Tiempo de generación: 12-06-2024 a las 18:38:27
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -58,25 +58,26 @@ CREATE TABLE `clientes` (
   `Fecha_registro` date NOT NULL,
   `Contrasena` varchar(10) NOT NULL,
   `num_rva` int(11) NOT NULL DEFAULT 0,
-  `ID_cargo` int(11) NOT NULL
+  `ID_cargo` int(11) NOT NULL,
+  `Puntos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Fecha_registro`, `Contrasena`, `num_rva`, `ID_cargo`) VALUES
-(10, 'Juan', 'Lopez', 'lopez@gmail.com', '0000-00-00', '1234', 149, 1),
-(11, 'Camila11', 'Garcia', 'camila@gmail.com', '0000-00-00', '1234', 0, 0),
-(12, 'Maria1', 'Diaz', 'Maria11@gmail.com', '0000-00-00', '123', 145, 0),
-(13, 'Judith', 'Diez', 'judith@gmail.com', '0000-00-00', '', 0, 0),
-(14, 'Miguel', 'Cervantes', 'Miguel@test.com', '0000-00-00', 'test', 0, 0),
-(15, 'Sara', 'Corrales', 'sara@gmail.com', '0000-00-00', '', 0, 0),
-(23, 'viviana', '', 'v@gmail.com', '0000-00-00', '123', 0, 0),
-(24, 'Luna', '', 'luna@gmail.com', '2024-01-21', '123', 0, 0),
-(29, 'camilo', '', 'camilo@hotmail.com', '2024-03-04', '123', 0, 1),
-(31, 'Mario', 'Garcia', 'mario@garcia.com', '2024-04-08', '123', 0, 0),
-(35, 'admin', '', 'admin@agencia.com', '2024-04-12', 'test', 120, 1);
+INSERT INTO `clientes` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Fecha_registro`, `Contrasena`, `num_rva`, `ID_cargo`, `Puntos`) VALUES
+(10, 'Juan', 'Lopez', 'lopez@gmail.com', '0000-00-00', '1234', 149, 1, 0),
+(11, 'Camila11', 'Garcia', 'camila@gmail.com', '0000-00-00', '1234', 0, 0, 0),
+(12, 'Maria1', 'Diaz', 'Maria11@gmail.com', '0000-00-00', '123', 145, 0, 0),
+(13, 'Judith', 'Diez', 'judith@gmail.com', '0000-00-00', '', 0, 0, 0),
+(14, 'Miguel', 'Cervantes', 'Miguel@test.com', '0000-00-00', 'test', 0, 0, 0),
+(15, 'Sara', 'Corrales', 'sara@gmail.com', '0000-00-00', '', 0, 0, 0),
+(23, 'viviana', '', 'v@gmail.com', '0000-00-00', '123', 0, 0, 0),
+(24, 'Luna', '', 'luna@gmail.com', '2024-01-21', '123', 0, 0, 0),
+(29, 'camilo', '', 'camilo@hotmail.com', '2024-03-04', '123', 0, 1, 0),
+(31, 'Mario', 'Garcia', 'mario@garcia.com', '2024-04-08', '123', 0, 0, 0),
+(35, 'admin', '', 'admin@agencia.com', '2024-04-12', 'test', 120, 1, 0);
 
 --
 -- Disparadores `clientes`
@@ -163,6 +164,28 @@ INSERT INTO `empleados` (`ID_empleado`, `Nombre`, `Apellido`, `Cargo`, `Email`, 
 (33, 'Viviana', 'Herrera', 'Administrativa', 'vivianagmail.com', 695847125),
 (34, 'Rodrigo', 'Caballero', 'Ejecutivo', 'rodrigo@gmail.com', 698523456),
 (35, 'Vanesa', 'Sanchez', 'Comercial', 'vanesa@gmail.com', 698521478);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `membresias`
+--
+
+DROP TABLE IF EXISTS `membresias`;
+CREATE TABLE `membresias` (
+  `ID_Membresia` int(11) NOT NULL,
+  `Nombre` varchar(30) DEFAULT NULL,
+  `PuntosMinimos` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `membresias`
+--
+
+INSERT INTO `membresias` (`ID_Membresia`, `Nombre`, `PuntosMinimos`) VALUES
+(1, 'Basico', 1),
+(2, 'Plata', 10),
+(3, 'Oro', 20);
 
 -- --------------------------------------------------------
 
@@ -361,6 +384,12 @@ ALTER TABLE `empleados`
   ADD PRIMARY KEY (`ID_empleado`);
 
 --
+-- Indices de la tabla `membresias`
+--
+ALTER TABLE `membresias`
+  ADD PRIMARY KEY (`ID_Membresia`);
+
+--
 -- Indices de la tabla `ofertas`
 --
 ALTER TABLE `ofertas`
@@ -419,6 +448,12 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `comerciales`
   MODIFY `ComercialID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `membresias`
+--
+ALTER TABLE `membresias`
+  MODIFY `ID_Membresia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `ofertas`
